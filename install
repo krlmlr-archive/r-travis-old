@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -v
 
 # Add RStudio's CRAN repository
 echo -e "deb http://cran.rstudio.com/bin/linux/ubuntu precise/\ndeb-src http://cran.rstudio.com/bin/linux/ubuntu precise/" > /etc/apt/sources.list.d/cran.list
