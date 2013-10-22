@@ -15,6 +15,7 @@ apt-get update -o Dir::Etc::sourcelist="sources.list.d/marutter-c2d4u-precise.li
 # Install recommended R packages, and LaTeX
 apt-get install --no-install-recommends r-base-dev r-cran-xml r-cran-rcurl r-recommended qpdf texinfo texlive-latex-recommended texlive-latex-extra lmodern texlive-fonts-recommended texlive-fonts-extra
 
-# Install crant
+# Install crant, accessible for everyone
+umask 0
 git clone https://github.com/krlmlr/crant.git ~/crant
 

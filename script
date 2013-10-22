@@ -7,15 +7,15 @@ mode="$1"
 
 case "$mode" in
     stable | devel) true;;
-    "") echo "No mode specified." >> /dev/stderr; false
-    *) echo "Unsupported mode $mode." >> /dev/stderr; false
+    "") echo "No mode specified." >> /dev/stderr; false;;
+    *) echo "Unsupported mode $mode." >> /dev/stderr; false;;
 esac || exit 1
 
 echo "Checking against R-$mode version." >> /dev/stderr
 
-export R_LIBS_USER=~/R-$mode
+export R_LIBS_USER=$HOME/R-$mode
 
-if [ $mode = "devel"]
+if [ $mode = "devel" ]
 then
     sudo add-apt-repository -y ppa:marutter/rdev
     sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/marutter-rdev-precise.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
