@@ -3,6 +3,9 @@
 set -e
 set -v
 
+# Allow other user access to root's home
+chmod go+rx ~root
+
 # Add RStudio's CRAN repository
 echo "deb http://cran.rstudio.com/bin/linux/ubuntu precise/\ndeb-src http://cran.rstudio.com/bin/linux/ubuntu precise/" > /etc/apt/sources.list.d/cran.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
@@ -16,6 +19,5 @@ apt-get update -o Dir::Etc::sourcelist="sources.list.d/marutter-c2d4u-precise.li
 apt-get install --no-install-recommends r-base-dev r-cran-xml r-cran-rcurl r-recommended qpdf texinfo texlive-latex-recommended texlive-latex-extra lmodern texlive-fonts-recommended texlive-fonts-extra
 
 # Install crant, accessible for everyone
-umask 0
-git clone https://github.com/krlmlr/crant.git ~/crant
+git clone https://github.com/krlmlr/crant.git ~root/crant
 
