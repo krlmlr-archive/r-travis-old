@@ -17,6 +17,5 @@ install:
 
 # run tests
 script:
-  - ~root/R-travis/script stable
-  - ~root/R-travis/script devel
+  - "for mode in stable devel; do ~root/R-travis/script $mode; done"
 ```
