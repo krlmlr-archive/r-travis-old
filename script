@@ -12,7 +12,7 @@ esac || exit 1
 
 echo "Checking against R-$mode version." >> /dev/stderr
 
-export R_LIBS_USER=R-$mode
+export R_LIBS_USER=~/R-$mode
 
 if [ $mode = "devel"]
 then

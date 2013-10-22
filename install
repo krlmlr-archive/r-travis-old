@@ -3,8 +3,7 @@
 set -e
 
 # Add RStudio's CRAN repository
-echo -e "deb http://cran.rstudio.com/bin/linux/ubuntu precise/\ndeb-src http://cran.rstudio.com/bin/linux/ubuntu precise/" |
-  sudo dd status=noxfer of=/etc/apt/sources.list.d/cran.list
+echo -e "deb http://cran.rstudio.com/bin/linux/ubuntu precise/\ndeb-src http://cran.rstudio.com/bin/linux/ubuntu precise/" | sudo dd status=noxfer of=/etc/apt/sources.list.d/cran.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/cran.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 
