@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cat README-base.md .travis.yml README-foot.md > $(dirname $0)/../README.md
