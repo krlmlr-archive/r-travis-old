@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+mode="$1"
+
+case "$mode" in
+    stable | devel) true;;
+    "") echo "No mode specified." >> /dev/stderr; false
+    *) echo "Unsupported mode $mode." >> /dev/stderr; false
+esac || exit 1
+
+echo "Checking against R-$mode version." >> /dev/stderr
+
+export R_LIBS_USER=R-$mode
+
+if [ $mode = "devel"]
+then
+    sudo add-apt-repository -y ppa:marutter/rdev
+    sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/marutter-rdev-precise.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+    sudo apt-get dist-upgrade
+fi
+
+rm -rf $R_LIBS_USER
+mkdir $R_LIBS_USER
+
+R --version
+R -e '.libPaths(); sessionInfo()'
+Rscript -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); install.packages(c("devtools")); library(devtools); install()'
+~/crant/rant -S -r
