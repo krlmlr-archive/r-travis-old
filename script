@@ -27,5 +27,5 @@ mkdir $R_LIBS_USER
 
 R --version
 R -e '.libPaths(); sessionInfo()'
-Rscript -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); install.packages(c("devtools")); library(devtools); install(dependencies = c("Depends", "Imports", "LinkingTo", "Suggests"))'
+Rscript -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); install.packages(c("devtools")); library(devtools); install(); install.packages(parse_deps(as.package(".")$suggests)$name)'
 ~root/crant/rant -S -r
