@@ -16,6 +16,7 @@ install() {
     apt-add-repository -y ppa:marutter/c2d4u
     apt-get update -o Dir::Etc::sourcelist="sources.list.d/marutter-c2d4u-precise.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 
+    echo "RTRAVISTYPE: $RTRAVISTYPE"
     case "$RTRAVISTYPE" in
         quick) true;;
         full | "") extra_packages="qpdf texinfo texlive-latex-recommended texlive-latex-extra lmodern texlive-fonts-recommended texlive-fonts-extra"; true;;
