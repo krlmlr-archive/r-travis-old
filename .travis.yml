@@ -7,6 +7,7 @@ env:
     - RTRAVISR="install_github(c('assertthat', 'testthat'));"
   matrix:
     - RTRAVISTYPE=quick
+    - RTRAVISTYPE=full
 
 # install dependencies
 install:
