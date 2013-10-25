@@ -1,12 +1,18 @@
 # it is not really python, but there is no R support on Travis CI yet
 language: python
 
-env: RTRAVISPATH=. RTRAVISR="install_github(c('assertthat', 'testthat'));"
+env:
+  global:
+    - RTRAVISPATH=.
+    - RTRAVISR="install_github(c('assertthat', 'testthat'));"
+  matrix:
+    - RTRAVISTYPE=quick
+    - RTRAVISTYPE=full
 
 # install dependencies
 install:
-  - sudo $RTRAVISPATH/r-travis install
+  - sudo -E $RTRAVISPATH/r-travis install
 
 # run tests
 script:
-  - "cd fakepackage && $RTRAVISPATH/../r-travis test stable && $RTRAVISPATH/../r-travis test devel"
+  - "cd fakepackage && $RTRAVISPATH/../r-travis test"
