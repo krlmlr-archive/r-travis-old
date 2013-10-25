@@ -5,8 +5,8 @@ env: RTRAVISPATH=.
 
 # install dependencies
 install:
-  - sudo $RTRAVISPATH/install
+  - sudo $RTRAVISPATH/r-travis install
 
 # run tests
 script:
-  - "cd fakepackage && $RTRAVISPATH/../script stable && $RTRAVISPATH/../script devel"
+  - "cd fakepackage && $RTRAVISPATH/../r-travis test stable && $RTRAVISPATH/../r-travis test devel"
