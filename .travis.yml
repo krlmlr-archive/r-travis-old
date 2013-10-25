@@ -10,7 +10,7 @@ env:
 
 # install dependencies
 install:
-  - sudo $RTRAVISPATH/install
+  - sudo -E $RTRAVISPATH/install
 
 # run tests
 script:
