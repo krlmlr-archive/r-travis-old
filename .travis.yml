@@ -16,3 +16,13 @@ install:
 # run tests
 script:
   - "cd fakepackage && $RTRAVISPATH test"
+
+dummy:
+  - item1
+  - item2
+
+more:
+  dummies:
+    - test
+  cleverlies:
+    - untest
