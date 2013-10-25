@@ -16,25 +16,11 @@ install() {
     apt-add-repository -y ppa:marutter/c2d4u
     apt-get update -o Dir::Etc::sourcelist="sources.list.d/marutter-c2d4u-precise.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 
-    echo "RTRAVISTYPE: $RTRAVISTYPE" >> /dev/stderr
-    case "$RTRAVISTYPE" in
-        quick) true;;
-        full | "") extra_packages="qpdf texinfo texlive-latex-recommended texlive-latex-extra lmodern texlive-fonts-recommended texlive-fonts-extra"; true;;
-        *) echo "Unsupported RTRAVISTYPE." >> /dev/stderr; false;;
-    esac || exit 1
-
     # Install recommended R packages, and LaTeX
     apt-get install --no-install-recommends r-base-dev r-cran-xml r-cran-rcurl r-recommended $extra_packages
 }
 
 test() {
-    echo "RTRAVISTYPE: $RTRAVISTYPE" >> /dev/stderr
-    case "$RTRAVISTYPE" in
-        quick) export modes=stable; true;;
-        full | "") export modes="stable devel"; true;;
-        *) echo "Unsupported RTRAVISTYPE." >> /dev/stderr; false;;
-    esac || exit 1
-
     for mode in $modes
     do
         test_mode $mode
@@ -71,17 +57,17 @@ test_mode() {
     R --vanilla --slave -e 'library(devtools); install_github("devtools")'
     R --vanilla --slave -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); library(devtools); devtools:::install_deps(dependencies = TRUE); '"$RTRAVISR"' install()'
 
-    echo "RTRAVISTYPE: $RTRAVISTYPE" >> /dev/stderr
-    case "$RTRAVISTYPE" in
-        quick) export build_vignettes=--no-build-vignettes; export manual=--no-manual; true;;
-        full | "") true;;
-        *) echo "Unsupported RTRAVISTYPE." >> /dev/stderr; false;;
-    esac || exit 1
-
     R CMD build $build_vignettes .
     tar_gz_file=$(ls -1 *.tar.gz)
     R CMD check "${tar_gz_file}" $manual --as-cran
 }
+
+echo "RTRAVISTYPE: $RTRAVISTYPE" >> /dev/stderr
+case "$RTRAVISTYPE" in
+    quick) modes=stable; build_vignettes=--no-build-vignettes; export manual=--no-manual; true;;
+    full | "") modes="stable devel"; extra_packages="qpdf texinfo texlive-latex-recommended texlive-latex-extra lmodern texlive-fonts-recommended texlive-fonts-extra"; true;;
+    *) echo "Unsupported RTRAVISTYPE." >> /dev/stderr; false;;
+esac || exit 1
 
 command="$1"
 shift
