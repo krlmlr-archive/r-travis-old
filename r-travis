@@ -4,9 +4,6 @@ set -e
 set -v
 
 install() {
-    # Allow other user access to root's home
-    chmod go+rx ~root
-
     # Add RStudio's CRAN repository
     echo "deb http://cran.rstudio.com/bin/linux/ubuntu precise/\ndeb-src http://cran.rstudio.com/bin/linux/ubuntu precise/" > /etc/apt/sources.list.d/cran.list
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
