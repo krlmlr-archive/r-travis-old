@@ -2,7 +2,7 @@ language: c
 
 env:
   global:
-    - RTRAVISPATH=.
+    - RTRAVISPATH=$HOME/r-travis
     - RTRAVISR="install_github(c('assertthat', 'testthat'));"
   matrix:
     - RTRAVISTYPE=quick
@@ -10,8 +10,9 @@ env:
 
 # install dependencies
 install:
-  - sudo -E $RTRAVISPATH/r-travis install
+  - cp r-travis $RTRAVISPATH
+  - sudo -E $RTRAVISPATH install
 
 # run tests
 script:
-  - "cd fakepackage && $RTRAVISPATH/../r-travis test"
+  - "cd fakepackage && $RTRAVISPATH test"
