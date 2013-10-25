@@ -1,7 +1,7 @@
 # it is not really python, but there is no R support on Travis CI yet
 language: python
 
-env: RTRAVISPATH=$PWD
+env: RTRAVISPATH=.
 
 # install dependencies
 install:
@@ -9,4 +9,4 @@ install:
 
 # run tests
 script:
-  - "cd fakepackage && $RTRAVISPATH/script stable && $RTRAVISPATH/script devel"
+  - "cd fakepackage && $RTRAVISPATH/../script stable && $RTRAVISPATH/../script devel"
