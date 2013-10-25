@@ -16,7 +16,7 @@ language: c
 
 env:
   global:
-    - RTRAVISPATH=~root/R-travis
+    - RTRAVISPATH=$HOME/r-travis
     - RTRAVISR="" # add custom R code to be executed before installing package
   matrix:
     - RTRAVISTYPE=quick
@@ -24,7 +24,8 @@ env:
 
 # install dependencies
 install:
-  - sudo git clone https://github.com/krlmlr/R-travis.git $RTRAVISPATH
+  - curl -L https://raw.github.com/krlmlr/R-travis/master/r-travis -o $RTRAVISPATH
+  - chmod +x $RTRAVISPATH
   - sudo -E $RTRAVISPATH/r-travis install
 
 # run tests
