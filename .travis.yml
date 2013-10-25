@@ -9,6 +9,4 @@ install:
 
 # run tests
 script:
-  - cd fakepackage
-  - $RTRAVISPATH/script stable
-  - $RTRAVISPATH/script devel
+  - "cd fakepackage && $RTRAVISPATH/script stable && $RTRAVISPATH/script devel"
