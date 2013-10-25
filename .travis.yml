@@ -4,7 +4,7 @@ language: python
 env:
   global:
     - RTRAVISPATH=.
-    - RTRAVISR="install_github(c('assertthat', 'testthat'))"
+    - RTRAVISR="install_github(c('assertthat', 'testthat'));"
   matrix:
     - RTRAVISTYPE=quick
 
