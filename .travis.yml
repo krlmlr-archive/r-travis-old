@@ -14,4 +14,4 @@ install:
 
 # run tests
 script:
-  - "cd fakepackage && $RTRAVISPATH/../r-travis test stable && $RTRAVISPATH/../r-travis test devel"
+  - "cd fakepackage && $RTRAVISPATH/../r-travis test"

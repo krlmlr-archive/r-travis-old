@@ -28,6 +28,20 @@ install() {
 }
 
 test() {
+    echo "RTRAVISTYPE: $RTRAVISTYPE" >> /dev/stderr
+    case "$RTRAVISTYPE" in
+        quick) export modes=stable; true;;
+        full | "") export modes="stable devel"; true;;
+        *) echo "Unsupported RTRAVISTYPE." >> /dev/stderr; false;;
+    esac || exit 1
+
+    for mode in $modes
+    do
+        test_mode $mode
+    done
+}
+
+test_mode() {
     mode="$1"
     shift
 
