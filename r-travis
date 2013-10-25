@@ -58,8 +58,7 @@ test() {
     R -e '.libPaths(); sessionInfo()'
     R --vanilla --slave -e 'install.packages(c("devtools"), repos=c("http://cran.rstudio.com"))'
     R --vanilla --slave -e 'library(devtools); install_github("devtools")'
-    [ -z "$RTRAVISR" ] || R --vanilla --slave -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); library(devtools); '"$RTRAVISR"
-    R --vanilla --slave -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); library(devtools); install(); install.packages(parse_deps(as.package(".")$suggests)$name)'
+    R --vanilla --slave -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); library(devtools); devtools:::install_deps(dependencies = TRUE); '"$RTRAVISR"' install()'
     ~root/crant/rant -S -r
 }
 
