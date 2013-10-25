@@ -16,8 +16,14 @@ install() {
     apt-add-repository -y ppa:marutter/c2d4u
     apt-get update -o Dir::Etc::sourcelist="sources.list.d/marutter-c2d4u-precise.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 
+    case "$RTRAVISTYPE" in
+        quick) true;;
+        full | "") extra_packages="qpdf texinfo texlive-latex-recommended texlive-latex-extra lmodern texlive-fonts-recommended texlive-fonts-extra"; true;;
+        *) echo "Unsupported RTRAVISTYPE." >> /dev/stderr; false;;
+    esac || exit 1
+
     # Install recommended R packages, and LaTeX
-    apt-get install --no-install-recommends r-base-dev r-cran-xml r-cran-rcurl r-recommended qpdf texinfo texlive-latex-recommended texlive-latex-extra lmodern texlive-fonts-recommended texlive-fonts-extra
+    apt-get install --no-install-recommends r-base-dev r-cran-xml r-cran-rcurl r-recommended $extra_packages
 
     # Install crant, accessible for everyone
     git clone https://github.com/krlmlr/crant.git ~root/crant
