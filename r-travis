@@ -25,6 +25,7 @@ install() {
 
 test() {
     mode="$1"
+    shift
 
     case "$mode" in
         stable | devel) true;;
@@ -48,7 +49,8 @@ test() {
 
     R --version
     R -e '.libPaths(); sessionInfo()'
-    Rscript -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); install.packages(c("devtools")); library(devtools); install(); install.packages(parse_deps(as.package(".")$suggests)$name)'
+    Rscript -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); install.packages(c("devtools")); library(devtools); '"$RTRAVISR"
+    Rscript -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); library(devtools); install(); install.packages(parse_deps(as.package(".")$suggests)$name)'
     ~root/crant/rant -S -r
 }
 

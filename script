@@ -1,4 +1,4 @@
 #!/bin/sh
 
-./r-travis test "$*"
+$(dirname $0)/r-travis test "$*"
 
