@@ -1,9 +1,8 @@
 R-travis
 ========
 
-Two tiny scripts that faciliate testing R packages with Travis CI.
-To test each commit and pull request against stable *and* development versions
-of R:
+A script that faciliates testing R packages with Travis CI.
+To test each commit and pull request:
 
 - add the following
 [`.travis.yml`](https://github.com/krlmlr/R-travis/blob/master/misc/.travis.yml)
