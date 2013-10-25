@@ -25,9 +25,6 @@ install() {
 
     # Install recommended R packages, and LaTeX
     apt-get install --no-install-recommends r-base-dev r-cran-xml r-cran-rcurl r-recommended $extra_packages
-
-    # Install crant, accessible for everyone
-    git clone https://github.com/krlmlr/crant.git ~root/crant
 }
 
 test() {
@@ -59,7 +56,17 @@ test() {
     R --vanilla --slave -e 'install.packages(c("devtools"), repos=c("http://cran.rstudio.com"))'
     R --vanilla --slave -e 'library(devtools); install_github("devtools")'
     R --vanilla --slave -e 'options(repos = c("http://rforge.net", "http://cran.rstudio.org")); library(devtools); devtools:::install_deps(dependencies = TRUE); '"$RTRAVISR"' install()'
-    ~root/crant/rant -S -r
+
+    echo "RTRAVISTYPE: $RTRAVISTYPE" >> /dev/stderr
+    case "$RTRAVISTYPE" in
+        quick) export build_vignettes=--no-build-vignettes; export manual=--no-manual; true;;
+        full | "") true;;
+        *) echo "Unsupported RTRAVISTYPE." >> /dev/stderr; false;;
+    esac || exit 1
+
+    R CMD build $build_vignettes .
+    tar_gz_file=$(ls -1 *.tar.gz)
+    R CMD check "${tar_gz_file}" $manual --as-cran
 }
 
 command="$1"
