@@ -1,4 +1,3 @@
-# it is not really python, but there is no R support on Travis CI yet
 language: c
 
 env:
