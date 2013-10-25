@@ -11,18 +11,22 @@ file to the root of your R package on GitHub
 - don't forget to add `.travis.yml` to `.Rbuildignore`
 
 ```
-# it is not really python, but there is no R support on Travis CI yet
-language: python
+language: c
 
-env: RTRAVISPATH=~root/R-travis
+env:
+  global:
+    - RTRAVISPATH=~root/R-travis
+    - RTRAVISR="" # add custom R code to be executed before installing package
+  matrix:
+    - RTRAVISTYPE=quick
+    - RTRAVISTYPE=full
 
 # install dependencies
 install:
   - sudo git clone https://github.com/krlmlr/R-travis.git $RTRAVISPATH
-  - sudo $RTRAVISPATH/install
+  - sudo -E $RTRAVISPATH/r-travis install
 
 # run tests
 script:
-  - $RTRAVISPATH/script stable
-  - $RTRAVISPATH/script devel
+  - $RTRAVISPATH/r-travis test
 ```
